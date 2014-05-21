@@ -1,6 +1,6 @@
 disqus
 ======
-
+Programming challenge for Disqus.
 Spell Checker in PHP running on command line
 
 Problem Discription:
