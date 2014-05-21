@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * 
+ * CreateMistake class which makes three different kinds
+ * of spelling mistakes.
+
+ */
+class CreatMistake {
+    
+   
+	
+    private $rnd_int = 8;
+    
+    /**
+     * Constructor
+     * 
+     * t
+     */
+    public function __construct() {
+        
+    }
+    
+    
+    /**
+     * 
+     * Make upper/lower case errors. Pick some random letters
+     * and make them either upper or lower.
+     * 
+     * @param string $in
+     * @return string mangled string
+     */
+    public function create_case($in) {
+    	$str_crt = array();
+    	
+    	foreach(str_split($in) as $key=>$val) {
+    		
+    		$str_crt[] = (rand(1, $this->rnd_int) == 1) ? strtoupper($val) : $val;
+    		
+    	}
+    	
+    	return implode('', $str_crt);
+    }
+    
+    
+    /**
+     * 
+     * @param string $in
+     * @return string corrected string, or empty string if none is found.
+     */
+    public function create_repeats($in) {
+    	$str_crt = array();
+    	
+    	foreach(str_split($in) as $key=>$val) {
+    		
+			if (rand(1, $this->rnd_int) )  {
+				$str_crt[] = $val.$val;
+			}
+			$str_crt[] = $val;
+    		
+    		
+    	}
+    	
+    	return implode('', $str_crt);
+    }
+
+    
+	/**
+     * 
+     * Fix incorrect vowels
+     * @param string $in
+     * @return string corrected string, or empty string if none is found.
+     */
+    public function create_vowels($in) {
+    	$vowels = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'); //TODO 'y' sometimes...
+    
+    	
+    		$str_crt = array();
+    		foreach(str_split($in) as $key=>$val) {
+    			if(in_array($val, $vowels)) {
+    				$str_crt[] = (rand(1, $this->rnd_int) == 1) ? $vowels[array_rand($vowels, 1)] : $val;
+    			} else {
+    				$str_crt[] = $val;
+    			}
+    		}
+    		
+			//return the string
+    		return implode('', $str_crt);
+    	
+    }
+    
+    /**
+     * 
+     * Mash up all spell
+     * @param string $in
+     */
+    public function mashup($in) {
+    	return $this->create_vowels($this->create_repeats($this->create_case($in)));
+    }
+
+}
+
+?>
